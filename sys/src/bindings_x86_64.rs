@@ -1522,6 +1522,17 @@ extern "C" {
     pub fn oboe_AudioStream_isXRunCountSupported(oboeStream: *const oboe_AudioStream) -> bool;
 }
 extern "C" {
+    #[link_name = "\u{1}_ZN4oboe37AudioStream_setPerformanceHintEnabledEPNS_11AudioStreamEb"]
+    pub fn oboe_AudioStream_setPerformanceHintEnabled(
+        oboeStream: *mut oboe_AudioStream,
+        enabled: bool,
+    );
+}
+extern "C" {
+    #[link_name = "\u{1}_ZN4oboe36AudioStream_isPerformanceHintEnabledEPNS_11AudioStreamE"]
+    pub fn oboe_AudioStream_isPerformanceHintEnabled(oboeStream: *mut oboe_AudioStream) -> bool;
+}
+extern "C" {
     #[link_name = "\u{1}_ZN4oboe29AudioStream_getFramesPerBurstEPNS_11AudioStreamE"]
     pub fn oboe_AudioStream_getFramesPerBurst(oboeStream: *mut oboe_AudioStream) -> i32;
 }

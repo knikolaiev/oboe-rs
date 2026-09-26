@@ -83,6 +83,9 @@ namespace oboe {
   ResultWithValue<int32_t>
   AudioStream_getXRunCount(AudioStream *oboeStream);
   bool AudioStream_isXRunCountSupported(const AudioStream *oboeStream);
+  void AudioStream_setPerformanceHintEnabled(AudioStream *oboeStream,
+                                             bool enabled);
+  bool AudioStream_isPerformanceHintEnabled(AudioStream *oboeStream);
   int32_t AudioStream_getFramesPerBurst(AudioStream *oboeStream);
   ResultWithValue<double>
   AudioStream_calculateLatencyMillis(AudioStream *oboeStream);

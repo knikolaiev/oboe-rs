@@ -58,6 +58,24 @@ pub trait AudioStreamSafe: AudioStreamBase {
     fn is_xrun_count_supported(&self) -> bool;
 
     /**
+     * Enable or disable a device specific CPU performance hint.
+     *
+     * The flag is checked in the data callback: on the false to true transition
+     * the PerformanceHint feature is started. It only needs to be set once.
+     *
+     * The feature is device specific and may not be implemented. On devices
+     * where it is, it may be backed by the ADPF library.
+     */
+    fn set_performance_hint_enabled(&mut self, _enabled: bool);
+
+    /**
+     * Returns true if the performance hint was requested via
+     * `set_performance_hint_enabled`. It does not tell whether the feature is
+     * implemented or active on the device.
+     */
+    fn is_performance_hint_enabled(&self) -> bool;
+
+    /**
      * Query the number of frames that are read or written by the endpoint at one time.
      */
     fn get_frames_per_burst(&mut self) -> i32;
@@ -370,6 +388,16 @@ impl<T: RawAudioStream + RawAudioStreamBase> AudioStreamSafe for T {
 
     fn is_xrun_count_supported(&self) -> bool {
         unsafe { ffi::oboe_AudioStream_isXRunCountSupported(self._raw_stream()) }
+    }
+
+    fn set_performance_hint_enabled(&mut self, enabled: bool) {
+        unsafe { ffi::oboe_AudioStream_setPerformanceHintEnabled(self._raw_stream_mut(), enabled) }
+    }
+
+    fn is_performance_hint_enabled(&self) -> bool {
+        unsafe {
+            ffi::oboe_AudioStream_isPerformanceHintEnabled(self._raw_stream() as *const _ as *mut _)
+        }
     }
 
     fn get_frames_per_burst(&mut self) -> i32 {

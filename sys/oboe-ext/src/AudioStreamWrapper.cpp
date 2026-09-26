@@ -66,6 +66,15 @@ namespace oboe {
     return oboeStream->isXRunCountSupported();
   }
 
+  void AudioStream_setPerformanceHintEnabled(AudioStream *oboeStream,
+                                             bool enabled) {
+    oboeStream->setPerformanceHintEnabled(enabled);
+  }
+
+  bool AudioStream_isPerformanceHintEnabled(AudioStream *oboeStream) {
+    return oboeStream->isPerformanceHintEnabled();
+  }
+
   int32_t AudioStream_getFramesPerBurst(AudioStream *oboeStream) {
     return oboeStream->getFramesPerBurst();
   }
